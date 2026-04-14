@@ -1,19 +1,14 @@
-import { memo } from "react";
-import styles from "./About.module.css";
+import { skills } from "../constants";
 
-function About() {
+const About = () => {
 	return (
-		<section className={styles.section}>
-			<div className={styles.container}>
-				<h2 className={styles.title}>About Me</h2>
-				<p className={styles.description}>
-					I'm a Computer Science student passionate about building
-					full-stack applications. I focus on performance, clean code,
-					and solving real-world problems using modern technologies.
-				</p>
-			</div>
+		<section>
+			<h1>About Me</h1>
+			{skills.map((skill) => (
+				<p key={skill.name}>{skill.name}</p>
+			))}
 		</section>
 	);
-}
+};
 
-export default memo(About);
+export default About;
