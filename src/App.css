@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   Single source of truth — change here, updates everywhere
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+	/* Spacing scale */
+	--space-section: clamp(4rem, 8vw, 7rem); /* section vertical padding */
+	--space-container: clamp(1.25rem, 5vw, 5rem); /* horizontal page padding */
+
+	/* Layout */
+	--max-width-content: 75rem; /* 1200px — readable line length on wide screens */
+	--max-width-wide: 90rem; /* 1440px — for full-bleed sections */
+
+	/* Typography */
+	--tracking-tight: -0.025em;
+	--tracking-normal: -0.01em;
+
+	/* Brand */
+	--color-accent: #a855f7; /* purple — matches Three.js scene */
+	--color-accent-10: rgba(168, 85, 247, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 RESET ADDITIONS
+	 (assumes Tailwind preflight handles box-sizing, margins etc.)
+  ═══════════════════════════════════════════════════════════════ */
+
+/* Smooth anchor scroll — fallback when GSAP ScrollSmoother isn't active */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Respect reduced motion — critical for accessibility */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	/* Pause all CSS animations — GSAP checks this internally */
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 TYPOGRAPHY RENDERING
+	 Scoped correctly — headings get full legibility treatment,
+	 body text gets speed-optimised rendering
+  ═══════════════════════════════════════════════════════════════ */
+
+/* Headings only — optimizeLegibility is slow on body copy */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-rendering: optimizeLegibility;
+	font-kerning: normal;
+	letter-spacing: var(--tracking-tight);
+}
+
+/* Body copy — speed over perfection */
+p,
+li,
+span {
+	text-rendering: optimizeSpeed;
+}
+
+/* Global antialiasing — apply once here, not per-component */
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 LAYOUT
+  ═══════════════════════════════════════════════════════════════ */
+
+/* Single fluid rule replaces 3 breakpoint overrides */
+.section-container {
+	width: 100%;
+	max-width: var(--max-width-content);
+	margin-inline: auto;
+	padding-inline: var(--space-container);
+}
+
+.section-container--wide {
+	max-width: var(--max-width-wide);
+}
+
+/* ─── Section spacing ─────────────────────────────────────────
+	 NOTE: Most sections use Tailwind py-24.
+	 Only apply this to sections that use .section-container
+	 without a Tailwind py class. Tailwind takes precedence.
+  ──────────────────────────────────────────────────────────────── */
+.section-spaced {
+	padding-block: var(--space-section);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 BRANDING DETAILS
+	 Small touches that make the portfolio feel considered
+  ═══════════════════════════════════════════════════════════════ */
+
+/* Purple text selection — on-brand, memorable */
+::selection {
+	background-color: var(--color-accent-10);
+	color: #ffffff;
+}
+
+/* Keyboard focus — visible but styled */
+:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+	border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 SCROLLBAR STYLING
+	 Thin, dark, on-brand — visible on Windows/Linux Chrome
+  ═══════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-accent);
+	border-radius: 999px;
+}
+
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-accent) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 SMOOTH SCROLL WRAPPER
+	 GSAP ScrollSmoother targets these IDs
+  ═══════════════════════════════════════════════════════════════ */
+
+#smooth-wrapper {
+	overflow: hidden;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+#smooth-content {
+	will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 MOBILE CANVAS
+	 Hide fixed WebGL canvas on mobile — prevents iOS scroll jank
+  ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+	[aria-hidden="true"] > canvas {
+		display: none;
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+	 UTILITY — GPU COMPOSITING
+	 Apply ONLY to elements that actually animate.
+	 NOT globally — excessive layers hurt more than help.
+  ═══════════════════════════════════════════════════════════════ */
+
+.will-animate {
+	will-change: transform, opacity;
+}
+
+/* Auto-remove will-change after animation completes */
+/* Apply via JS: el.classList.add('will-animate') → remove after GSAP onComplete */
+.animation-done {
+	will-change: auto;
+}

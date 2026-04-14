@@ -1,0 +1,175 @@
+/* ── Layout ─────────────────────────────────────────────────── */
+
+.landing-section {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.landing-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	padding: 0 clamp(1.5rem, 6vw, 6rem);
+	z-index: 1;
+}
+
+/* ── Greeting ────────────────────────────────────────────────── */
+
+.landing-greeting {
+	font-size: clamp(1rem, 2vw, 1.25rem);
+	color: rgba(255, 255, 255, 0.5);
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	margin: 0;
+}
+
+/* ── Name ────────────────────────────────────────────────────── */
+
+.landing-name {
+	font-size: clamp(3.5rem, 10vw, 9rem);
+	font-weight: 800;
+	line-height: 0.9;
+	margin: 0;
+	letter-spacing: -0.02em;
+	will-change: auto; /* Remove if causing issues; mainly for paint layers */
+}
+
+.landing-name-first {
+	display: block;
+	color: #ffffff;
+}
+
+.landing-name-last {
+	display: block;
+	/* 
+	  Alternative to -webkit-text-stroke (lighter, more performant):
+	  Uses background-clip for outline effect without repaints.
+	  Falls back to text-stroke if unsupported.
+	*/
+	background: linear-gradient(
+		to right,
+		rgba(255, 255, 255, 0.7),
+		rgba(255, 255, 255, 0.7)
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-stroke: 1px rgba(255, 255, 255, 0.7);
+	-webkit-text-stroke: 1px rgba(255, 255, 255, 0.7);
+}
+
+/* ── Role Cycle ──────────────────────────────────────────────── */
+
+.landing-role-cycle {
+	position: relative;
+	height: clamp(1.8rem, 5vw, 2.5rem); /* Responsive height */
+	overflow: hidden;
+	margin: 0;
+	font-size: clamp(1rem, 2.5vw, 1.5rem);
+	font-weight: 400;
+	color: rgba(255, 255, 255, 0.6);
+	letter-spacing: 0.05em;
+	line-height: 1.4; /* Prevent text clipping */
+}
+
+.landing-role-item {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+
+	/* Each item: hidden by default */
+	opacity: 0;
+	transform: translateY(100%);
+
+	/*
+	  FIXED TIMING: 4s cycle matches JavaScript interval.
+	  Each role visible for ~1.33s out of 4s total (3 roles).
+	  Delay stagger: index × (4s / 3) ≈ index × 1.33s
+	*/
+	animation: roleSlide 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+	animation-delay: calc(var(--role-index) * 1.33s);
+	will-change: opacity, transform;
+}
+
+@keyframes roleSlide {
+	0% {
+		opacity: 0;
+		transform: translateY(60%);
+	}
+	10% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	32% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	42% {
+		opacity: 0;
+		transform: translateY(-60%);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-60%);
+	}
+}
+
+/* ── Accessibility: Respect Motion Preferences ────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+	.landing-role-item {
+		animation: none;
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.landing-name,
+	.landing-greeting,
+	.landing-role-cycle {
+		transition: none;
+	}
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+	.landing-role-cycle {
+		height: clamp(1.6rem, 4vw, 2.2rem);
+	}
+}
+
+@media (max-width: 640px) {
+	.landing-container {
+		gap: 1rem;
+	}
+
+	.landing-role-cycle {
+		height: clamp(1.5rem, 3.5vw, 2rem);
+	}
+
+	.landing-name {
+		letter-spacing: -0.01em;
+	}
+}
+
+@media (max-width: 480px) {
+	.landing-section {
+		min-height: auto;
+		padding: 3rem 0;
+	}
+
+	.landing-container {
+		gap: 0.75rem;
+		padding: 0 clamp(1rem, 4vw, 1.5rem);
+	}
+
+	.landing-name {
+		line-height: 0.85;
+	}
+}

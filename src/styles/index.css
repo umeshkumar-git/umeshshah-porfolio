@@ -1,0 +1,60 @@
+/* INDEX.CSS - The Base Layer 
+  Focus: Resets and low-level defaults. 
+*/
+
+:root {
+	--scrollbar-width: 6px;
+	--scrollbar-track: #000000;
+	--scrollbar-thumb: #333333;
+	--scrollbar-thumb-hover: #444444;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #000; /* Pure black to prevent white flashes in 3D */
+	color: #fff;
+	font-family: "Inter", system-ui, -apple-system, sans-serif;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern Scrollbar - Optimized for Dark UI
+  Recruiters notice these small polish details.
+*/
+::-webkit-scrollbar {
+	width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+	background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb);
+	border-radius: 100px;
+	border: 1px solid var(--scrollbar-track); /* Creates a "floating" effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--scrollbar-thumb-hover);
+}
+
+/* Fix for iOS momentum scrolling */
+.main-body {
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Utility to hide content during 3D initialization */
+.loading-hidden {
+	opacity: 0;
+	pointer-events: none;
+}

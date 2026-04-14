@@ -1,0 +1,97 @@
+/* Container for the fixed sidebar */
+.social-sidebar-container {
+	position: fixed;
+	left: 1.5rem; /* 24px */
+	bottom: 2rem; /* 32px */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	z-index: 50;
+	pointer-events: none; /* Allow clicks to pass through to canvas if not on icon */
+}
+
+/* Individual item wrapper - The "Hit Zone" */
+.social-item-wrap {
+	pointer-events: auto;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+}
+
+/* The actual button */
+.social-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 9999px;
+	background-color: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.5);
+	transition: color 0.2s ease, border-color 0.2s ease,
+		background-color 0.2s ease;
+	text-decoration: none;
+	backdrop-filter: blur(4px);
+}
+
+.social-btn:hover {
+	color: #ffffff;
+	border-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Specialized hover for Resume */
+.resume-btn:hover {
+	border-color: rgba(168, 85, 247, 0.5); /* Purple-500 */
+	background-color: rgba(168, 85, 247, 0.1);
+}
+
+/* Tooltip Styling */
+.social-tooltip {
+	position: absolute;
+	left: 100%;
+	margin-left: 0.75rem;
+	padding: 0.25rem 0.5rem;
+	background-color: rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 10px;
+	font-weight: 500;
+	border-radius: 4px;
+	white-space: nowrap;
+	pointer-events: none;
+
+	/* Animation properties */
+	opacity: 0;
+	transform: translateX(-4px) scale(0.95);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Show tooltip on wrapper hover */
+.social-item-wrap:hover .social-tooltip {
+	opacity: 1;
+	transform: translateX(0) scale(1);
+}
+
+/* Vertical decorative line */
+.social-divider {
+	width: 1px;
+	height: 64px;
+	background: linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 0.2),
+		transparent
+	);
+	margin: 0.5rem 0;
+}
+
+/* Hide on Mobile - Modern portfolios prioritize clean mobile views */
+@media (max-width: 768px) {
+	.social-sidebar-container {
+		display: none;
+	}
+}

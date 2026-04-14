@@ -1,0 +1,166 @@
+.dashboard {
+	width: 100%;
+	padding: 4rem 2rem;
+	margin: 2rem 0;
+}
+
+.dashboard-header {
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+.dashboard-header h2 {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+	color: var(--text-primary, #fff);
+}
+
+.dashboard-subtitle {
+	font-size: 0.95rem;
+	color: var(--text-secondary, #aaa);
+	margin: 0;
+}
+
+.dashboard-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1.5rem;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.dashboard-card {
+	padding: 2rem;
+	border-radius: 12px;
+	background: var(--card, #1a1a1a);
+	border: 1px solid var(--border, #333);
+	transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	cursor: default;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Hover effect for desktop */
+@media (hover: hover) {
+	.dashboard-card:hover {
+		border-color: var(--accent, #2563eb);
+		background: var(--card-hover, #222);
+		transform: translateY(-4px);
+		box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+	}
+
+	.dashboard-card:hover::before {
+		opacity: 1;
+	}
+}
+
+/* Gradient overlay on hover */
+.dashboard-card::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		135deg,
+		rgba(37, 99, 235, 0.1) 0%,
+		transparent 100%
+	);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+}
+
+.card-value {
+	font-size: 3rem;
+	font-weight: 800;
+	background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	margin-bottom: 0.5rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.card-label {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--text-primary, #fff);
+	margin-bottom: 0.5rem;
+}
+
+.card-description {
+	font-size: 0.85rem;
+	color: var(--text-secondary, #aaa);
+	line-height: 1.4;
+}
+
+/* Animations - fade in on load */
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.dashboard-card {
+	animation: slideUp 0.6s ease-out forwards;
+}
+
+.dashboard-card:nth-child(1) {
+	animation-delay: 0.1s;
+}
+
+.dashboard-card:nth-child(2) {
+	animation-delay: 0.2s;
+}
+
+.dashboard-card:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.dashboard {
+		padding: 3rem 1rem;
+	}
+
+	.dashboard-header h2 {
+		font-size: 1.5rem;
+	}
+
+	.dashboard-grid {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.card-value {
+		font-size: 2rem;
+	}
+
+	.card-label {
+		font-size: 1rem;
+	}
+}
+
+/* Mobile touch-friendly spacing */
+@media (max-width: 480px) {
+	.dashboard {
+		padding: 2rem 1rem;
+		margin: 1rem 0;
+	}
+
+	.dashboard-card {
+		padding: 1.5rem;
+	}
+
+	.card-value {
+		font-size: 1.75rem;
+	}
+}
