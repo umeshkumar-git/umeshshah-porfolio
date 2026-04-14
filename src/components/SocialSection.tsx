@@ -112,31 +112,31 @@ const SocialSection = memo(() => {
       >
         {/* Primary row */}
         <div className="flex items-center gap-3">
-          {primaryLinks.map(({ id, icon: Icon, href, label, ariaLabel }) => (
-            
-              key={id}
-              data-social-link
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={ariaLabel}
-              style={{ opacity: 0 }} // GSAP animates in
-              className="
-                flex items-center gap-2.5 px-5 py-2.5 rounded-full
-                border border-white/10 bg-white/3
-                text-white/50 text-sm font-medium
-                transition-all duration-200
-                hover:text-white hover:border-purple-500/40
-                hover:bg-purple-500/8
-                hover:shadow-[0_0_16px_rgba(168,85,247,0.15)]
-                focus-visible:outline-none focus-visible:ring-2
-                focus-visible:ring-purple-500
-              "
-            >
-              <Icon size={15} strokeWidth={1.5} aria-hidden="true" />
-              {label}
-            </a>
-          ))}
+        {primaryLinks.map(({ id, icon: Icon, href, label, ariaLabel }) => (
+  <a
+    key={id}
+    data-social-link
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={ariaLabel}
+    style={{ opacity: 0 }}
+    className="
+      flex items-center gap-2.5 px-5 py-2.5 rounded-full
+      border border-white/10 bg-white/3
+      text-white/50 text-sm font-medium
+      transition-all duration-200
+      hover:text-white hover:border-purple-500/40
+      hover:bg-purple-500/8
+      hover:shadow-[0_0_16px_rgba(168,85,247,0.15)]
+      focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-purple-500
+    "
+  >
+    <Icon size={15} strokeWidth={1.5} aria-hidden="true" />
+    {label}
+  </a>
+))}
         </div>
 
         {/* Divider between primary and secondary — desktop only */}
@@ -150,7 +150,7 @@ const SocialSection = memo(() => {
           {secondaryLinks.map(({ id, icon: Icon, href, label, ariaLabel }) => {
             const isMailto = href.startsWith("mailto");
             return (
-              
+              <a
                 key={id}
                 data-social-link
                 href={href}
@@ -158,7 +158,7 @@ const SocialSection = memo(() => {
                 rel={isMailto ? undefined : "noopener noreferrer"}
                 aria-label={ariaLabel}
                 title={label}
-                style={{ opacity: 0 }} // GSAP animates in
+                style={{ opacity: 0 }}
                 className="
                   flex items-center justify-center
                   w-10 h-10 rounded-full
@@ -174,7 +174,6 @@ const SocialSection = memo(() => {
                 <Icon size={15} strokeWidth={1.5} aria-hidden="true" />
               </a>
             );
-          })}
         </div>
       </div>
 
