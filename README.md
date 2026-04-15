@@ -1,112 +1,178 @@
 # 🚀 Umesh Shah — 3D Developer Portfolio
 
-A modern, high-performance **3D portfolio website** built with React, Three.js, and GSAP.
-Designed to showcase projects, skills, and interactive UI/UX for frontend and creative development roles.
+This is my personal **3D portfolio website**, built to showcase my work, skills, and how I approach modern frontend development.
+
+I wanted this to feel more than just a website — something interactive, smooth, and visually engaging.
+
+🔗 Live: https://umeshshah.in  
+🔗 Repo: https://github.com/umeshkumar-git/umeshshah-porfolio
 
 ---
 
-![Portfolio Preview](public/images/preview1.png)
+## 🎬 Preview
+
+![Portfolio Demo](public/images/demo.gif)
 
 ---
 
-# ✨ Highlights
+## ✨ Highlights
 
--   🎯 Recruiter-focused portfolio structure
 -   🌌 Interactive 3D experience using React Three Fiber
 -   ⚡ Smooth animations powered by GSAP
--   🎨 Modern UI with gradients, glow effects, and motion
--   🖱️ Custom cursor and micro-interactions
--   📱 Fully responsive (mobile + desktop optimized)
+-   🎯 Built with a recruiter-first mindset
+-   🎨 Modern UI with clean motion and visual hierarchy
+-   🖱️ Micro-interactions and custom cursor
+-   📱 Fully responsive across devices
 
 ---
 
-# 🧠 About This Project
+## 🧠 Why I Built This
 
-This portfolio is built to demonstrate:
+Most portfolios look similar and don’t really show how a developer thinks.
 
--   Strong frontend fundamentals
--   Real-world UI/UX thinking
--   3D web development capability
--   Performance-aware implementation
+I built this project to:
 
-It is not just a design project — it reflects how I build scalable, interactive web applications.
-
----
-
-# 🛠️ Tech Stack
-
-## Core
-
--   React 18
--   TypeScript
--   Vite
-
-## 3D & Animation
-
--   Three.js
--   React Three Fiber
--   GSAP (Scroll + Motion Animations)
--   @react-three/drei
-
-## UI & Utilities
-
--   Framer Motion
--   React Icons
--   Vercel Analytics
+-   Demonstrate **real frontend engineering skills**
+-   Explore **3D in web applications**
+-   Focus on **UI/UX + performance together**
+-   Create something that actually stands out
 
 ---
 
-# 📂 Project Structure
+## 🛠️ Tech Stack
+
+### Core
+
+[![React](https://skillicons.dev/icons?i=react)](https://react.dev/)
+[![TypeScript](https://skillicons.dev/icons?i=ts)](https://www.typescriptlang.org/)
+[![Vite](https://skillicons.dev/icons?i=vite)](https://vitejs.dev/)
+
+---
+
+### 3D & Animation
+
+[![Three.js](https://skillicons.dev/icons?i=threejs)](https://threejs.org/)
+[![R3F](https://img.shields.io/badge/React_Three_Fiber-000000?style=for-the-badge&logo=three.js)](https://docs.pmnd.rs/react-three-fiber)
+[![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock)](https://gsap.com/)
+[![Drei](https://img.shields.io/badge/Drei-000000?style=for-the-badge&logo=three.js)](https://github.com/pmndrs/drei)
+
+---
+
+### UI & Utilities
+
+[![Framer Motion](https://skillicons.dev/icons?i=react)](https://www.framer.com/motion/)
+[![React Icons](https://img.shields.io/badge/React_Icons-61DAFB?style=for-the-badge&logo=react)](https://react-icons.github.io/react-icons/)
+[![Vercel](https://skillicons.dev/icons?i=vercel)](https://vercel.com/)
+
+---
+
+## 🧠 Case Study — How I Built This
+
+### 🎯 Problem
+
+Most developer portfolios:
+
+-   Look generic
+-   Lack interactivity
+-   Don’t reflect real frontend skills
+
+---
+
+### 💡 Approach
+
+I focused on building an **experience**, not just a UI:
+
+-   Interactive 3D elements
+-   Smooth animation system
+-   Clean component architecture
+-   Performance-aware design
+
+---
+
+### ⚙️ Key Decisions
+
+**React Three Fiber instead of raw Three.js**
+
+-   Better integration with React
+-   Cleaner component structure
+
+**GSAP for animations**
+
+-   Precise timeline control
+-   Smooth scroll-based transitions
+
+**Modular architecture**
+
+-   Scalable and maintainable
+-   Separation of UI and logic
+
+---
+
+### 🚧 Challenges & Learnings
+
+**🌌 3D Performance**
+
+-   Optimized rendering cycles
+-   Reduced model complexity
+-   Controlled animation triggers
+
+**⚡ Animation vs UX**
+
+-   Avoided over-animation
+-   Balanced smoothness with performance
+
+**📱 Responsive 3D**
+
+-   Dynamic camera adjustments
+-   Mobile-specific optimizations
+
+---
+
+## 📊 Performance Metrics
+
+| Metric                 | Value       |
+| ---------------------- | ----------- |
+| 🚀 Load Time           | ~1.5 – 2.5s |
+| 🎯 Lighthouse Score    | 85+         |
+| 🎮 FPS                 | 50–60 FPS   |
+| 📱 Mobile Optimization | Enabled     |
+
+---
+
+## 📂 Project Structure
 
 ```text
 src/
  ├── components/
- │   ├── Character/        # 3D scene & logic
- │   ├── Navbar.tsx       # Navigation
- │   ├── Landing.tsx      # Hero section
+ │   ├── Character/
+ │   ├── Navbar.tsx
+ │   ├── Landing.tsx
  │   ├── About.tsx
- │   ├── Work.tsx         # Projects
+ │   ├── Work.tsx
  │   ├── Contact.tsx
- │   └── styles/          # Component styles
- │
- ├── data/                # Static content
- ├── assets/              # Images & models
+ │   └── styles/
+ ├── data/
+ ├── assets/
  ├── App.tsx
  └── main.tsx
 ```
 
 ---
 
-# 🚀 Getting Started
-
-## 1. Clone Repository
+## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/3d-portfolio.git
-cd 3d-portfolio
-```
-
-## 2. Install Dependencies
-
-```bash
+git clone https://github.com/umeshkumar-git/umeshshah-porfolio.git
+cd umeshshah-porfolio
 npm install
-```
-
-## 3. Run Development Server
-
-```bash
 npm run dev
 ```
 
-Open:
-
-```
-http://localhost:5173
-```
+Open → http://localhost:5173
 
 ---
 
-# 📦 Build for Production
+## 📦 Build
 
 ```bash
 npm run build
@@ -115,85 +181,35 @@ npm run preview
 
 ---
 
-# 🎨 Customization
+## 🎨 Customization
 
-To personalize this portfolio:
-
--   Update content in:
-
-    ```
-    src/components/About.tsx
-    src/components/Work.tsx
-    src/data/
-    ```
-
--   Replace assets:
-
-    ```
-    src/assets/
-    public/images/
-    ```
-
--   Modify styles:
-
-    ```
-    src/components/styles/
-    ```
-
--   Adjust 3D scene:
-
-    ```
-    src/components/Character/
-    ```
+-   Edit content → `src/data/`
+-   Update sections → `src/components/`
+-   Replace assets → `public/images/`
+-   Modify 3D → `components/Character/`
 
 ---
 
-# ⚡ Performance Notes
+## 🌐 Deployment
 
--   Optimized for smooth FPS with controlled 3D rendering
--   Lightweight animations using GSAP
--   Mobile-friendly rendering adjustments
+Deploy easily on:
 
----
-
-# 🎯 What This Portfolio Demonstrates
-
--   Clean component architecture
--   Interactive UI design
--   3D integration in web apps
--   Animation systems with GSAP
--   Real-world frontend development skills
-
----
-
-# 🌐 Deployment
-
-You can deploy easily using:
-
--   Vercel
+-   Vercel (recommended)
 -   Netlify
 -   Cloudflare Pages
 
-Just upload the `dist/` folder after build.
+---
+
+## 📬 Contact
+
+-   💻 GitHub: https://github.com/umeshkumar-git
+-   💼 LinkedIn: https://linkedin.com/in/umesh-kumar-shah
+-   📧 Email: me@umeshshah.in
 
 ---
 
-# 📬 Contact
+## ⭐ Final Note
 
--   GitHub: https://github.com/YOUR_USERNAME
--   LinkedIn: https://linkedin.com/in/YOUR_USERNAME
--   Email: [youremail@gmail.com](mailto:youremail@gmail.com)
+This project reflects my journey in frontend development and my interest in building interactive web experiences.
 
----
-
-# 📄 License
-
-MIT License — free to use and modify.
-
----
-
-# ⭐ Final Note
-
-If you found this project useful or inspiring, consider giving it a ⭐ on GitHub.
-
----
+If you found it useful or interesting, consider giving it a ⭐ or connecting with me!
