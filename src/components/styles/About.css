@@ -1,71 +1,137 @@
+/* ─── src/components/styles/About.css ───────────────────────────────────────── */
+
 .about-section {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  place-items: center;
-  position: relative;
-  opacity: 1;
-  height: auto;
-  width: var(--cWidth);
-  margin: auto;
-}
-.about-me {
-  padding: 50px 0px;
-  padding-bottom: 0;
-  width: 500px;
-  max-width: calc(100% - 15px);
-}
-.about-me h3 {
-  font-size: 25px;
-  text-transform: uppercase;
-  letter-spacing: 7px;
-  font-weight: 400;
-  color: var(--accentColor);
+	padding: 7rem clamp(1.5rem, 6vw, 5rem);
+	max-width: 1100px;
+	margin: 0 auto;
 }
 
-.about-me p {
-  font-size: 33px;
-  font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 1px;
+.about-container {
+	display: grid;
+	grid-template-columns: 1fr 1.4fr;
+	gap: 5rem;
+	align-items: center;
 }
 
-@media only screen and (min-width: 600px) {
-  .about-section {
-    justify-content: center;
-  }
+/* ── Photo ── */
+.about-image-wrap {
+	position: relative;
 }
-@media only screen and (min-width: 768px) {
-  .about-me {
-    width: 500px;
-    max-width: calc(100% - 70px);
-    transform: translateY(0%);
-  }
-  .about-section {
-    opacity: 1;
-  }
+
+.about-photo {
+	width: 100%;
+	max-width: 340px;
+	aspect-ratio: 3 / 4;
+	object-fit: cover;
+	object-position: top;
+	border-radius: 16px;
+	display: block;
+	filter: grayscale(15%);
+	transition: filter 0.4s;
 }
-@media only screen and (min-width: 1025px) {
-  .about-section {
-    width: var(--cWidth);
-    justify-content: right;
-    max-width: 1920px;
-    height: var(--vh);
-    padding: 0px;
-    opacity: 1;
-  }
-  .about-me {
-    padding: 0px;
-    width: 50%;
-  }
-  .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
-  }
+.about-photo:hover {
+	filter: grayscale(0%);
 }
-@media only screen and (min-width: 1950px) {
-  .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
-  }
+
+.about-image-glow {
+	position: absolute;
+	inset: 0;
+	border-radius: 16px;
+	background: linear-gradient(
+		135deg,
+		rgba(139, 92, 246, 0.15),
+		rgba(59, 130, 246, 0.1)
+	);
+	pointer-events: none;
+}
+
+/* ── Text ── */
+.about-label {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: rgba(139, 92, 246, 0.9);
+	margin: 0 0 1rem;
+}
+
+.about-heading {
+	font-size: clamp(1.75rem, 3vw, 2.5rem);
+	font-weight: 700;
+	color: #fff;
+	line-height: 1.2;
+	margin: 0 0 1.5rem;
+}
+
+.about-heading-dim {
+	color: rgba(255, 255, 255, 0.3);
+}
+
+.about-body {
+	font-size: 0.9375rem;
+	color: rgba(255, 255, 255, 0.5);
+	line-height: 1.8;
+	margin: 0 0 2.5rem;
+}
+
+/* ── Stats ── */
+.about-stats {
+	display: flex;
+	gap: 2rem;
+	margin-bottom: 2.5rem;
+}
+
+.about-stat {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.about-stat-value {
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: #fff;
+	line-height: 1;
+}
+
+.about-stat-label {
+	font-size: 0.75rem;
+	color: rgba(255, 255, 255, 0.35);
+	letter-spacing: 0.04em;
+}
+
+/* ── Resume button ── */
+.about-resume-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	padding: 0.6rem 1.25rem;
+	border-radius: 6px;
+	transition: color 0.2s, border-color 0.2s;
+}
+.about-resume-btn:hover {
+	color: #fff;
+	border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+	.about-container {
+		grid-template-columns: 1fr;
+		gap: 3rem;
+	}
+	.about-photo {
+		max-width: 240px;
+		margin: 0 auto;
+	}
+	.about-stats {
+		gap: 1.5rem;
+	}
 }

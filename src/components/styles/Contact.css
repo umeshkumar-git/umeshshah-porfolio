@@ -1,116 +1,137 @@
-.contact-section {
-  margin: auto;
-  padding-bottom: 100px;
-  margin-top: 100px;
-  position: relative;
-  z-index: 2;
-  background-color: var(--backgroundColor);
-}
+// ─── src/components/Contact.tsx ───────────────────────────────────────────────
+// Fixed: added proper section wrapper, labels, styling, and status messages.
+// EmailJS still used — just needs your .env variables set.
 
-.contact-section h3 {
-  font-size: 60px;
-  font-weight: 400;
-  text-transform: uppercase;
-  margin: 0;
-}
+import { useState, ChangeEvent, FormEvent } from "react";
+import emailjs from "@emailjs/browser";
+import "./styles/Contact.css";
+import { personalDetails } from "../data/personalDetails";
 
-.contact-flex {
-  display: flex;
-  justify-content: space-between;
-}
+type FormState = { name: string; email: string; message: string };
+type Status = "idle" | "sending" | "sent" | "error";
 
-.contact-flex h4 {
-  font-weight: 500;
-  margin: 0;
-  opacity: 0.6;
-}
+const Contact = () => {
+	const [form, setForm] = useState<FormState>({ name: "", email: "", message: "" });
+	const [status, setStatus] = useState<Status>("idle");
 
-.contact-box {
-  display: flex;
-  flex-direction: column;
-}
+	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		const { name, value } = e.target;
+		setForm((prev) => ({ ...prev, [name]: value }));
+	};
 
-.contact-flex p {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setStatus("sending");
 
-a.contact-social {
-  font-size: 25px;
-  border-bottom: 1px solid #ccc;
-}
+		emailjs
+			.send(
+				import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+				import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+				form,
+				import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+			)
+			.then(() => {
+				setStatus("sent");
+				setForm({ name: "", email: "", message: "" });
+			})
+			.catch(() => setStatus("error"));
+	};
 
-.contact-box h2 {
-  font-weight: 400;
-  font-size: 23px;
-  margin: 0;
-}
+	return (
+		<section id="contact" className="contact-section" aria-labelledby="contact-heading">
+			<div className="contact-container">
+				<p className="contact-label">Get in touch</p>
+				<h2 id="contact-heading" className="contact-heading">
+					Let's work<span className="contact-heading-dim"> together</span>
+				</h2>
 
-.contact-box h2>span {
-  color: var(--accentColor);
-}
+				<div className="contact-grid">
+					{/* Left: info */}
+					<div className="contact-info">
+						<p className="contact-info-text">
+							I'm currently open to internships and freelance projects. If you
+							have something in mind, drop me a message.
+						</p>
+						<div className="contact-links">
+							<a href={`mailto:${personalDetails.social.email}`} className="contact-link">
+								✉ {personalDetails.social.email}
+							</a>
+							<a href={personalDetails.social.github} target="_blank" rel="noopener noreferrer" className="contact-link">
+								⌥ GitHub
+							</a>
+							<a href={personalDetails.social.linkedin} target="_blank" rel="noopener noreferrer" className="contact-link">
+								⌥ LinkedIn
+							</a>
+						</div>
+					</div>
 
-.contact-box h5 {
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 20px;
-  display: flex;
-  gap: 10px;
-  opacity: 0.5;
-}
+					{/* Right: form */}
+					<form onSubmit={handleSubmit} className="contact-form" noValidate>
+						<div className="contact-field">
+							<label htmlFor="contact-name" className="contact-field-label">Name</label>
+							<input
+								id="contact-name"
+								type="text"
+								name="name"
+								value={form.name}
+								onChange={handleChange}
+								placeholder="Your name"
+								required
+								className="contact-input"
+							/>
+						</div>
 
-@media only screen and (max-width: 1600px) {
-  .contact-section h3 {
-    font-size: 50px;
-  }
+						<div className="contact-field">
+							<label htmlFor="contact-email" className="contact-field-label">Email</label>
+							<input
+								id="contact-email"
+								type="email"
+								name="email"
+								value={form.email}
+								onChange={handleChange}
+								placeholder="your@email.com"
+								required
+								className="contact-input"
+							/>
+						</div>
 
-  .contact-box h2 {
-    font-size: 20px;
-  }
+						<div className="contact-field">
+							<label htmlFor="contact-message" className="contact-field-label">Message</label>
+							<textarea
+								id="contact-message"
+								name="message"
+								value={form.message}
+								onChange={handleChange}
+								placeholder="Tell me about your project..."
+								required
+								rows={5}
+								className="contact-input contact-textarea"
+							/>
+						</div>
 
-  a.contact-social {
-    font-size: 22px;
-  }
-}
+						<button
+							type="submit"
+							className="contact-submit"
+							disabled={status === "sending"}
+						>
+							{status === "sending" ? "Sending…" : "Send message"}
+						</button>
 
-@media only screen and (max-width: 1300px) {
-  .contact-section h3 {
-    font-size: 40px;
-  }
+						{status === "sent" && (
+							<p className="contact-status contact-status--success">
+								Message sent! I'll get back to you soon.
+							</p>
+						)}
+						{status === "error" && (
+							<p className="contact-status contact-status--error">
+								Something went wrong. Try emailing me directly.
+							</p>
+						)}
+					</form>
+				</div>
+			</div>
+		</section>
+	);
+};
 
-  .contact-box h2 {
-    font-size: 18px;
-  }
-
-  a.contact-social {
-    font-size: 20px;
-  }
-
-  .contact-flex p {
-    margin-top: 0px;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .contact-flex {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .contact-flex p {
-    margin-bottom: 0px;
-  }
-
-  .contact-flex h4 {
-    margin-top: 20px;
-  }
-
-  .contact-section {
-    margin-top: 50px;
-    padding-bottom: 50px;
-  }
-
-  .contact-container {
-    width: calc(100% - 25px);
-  }
-}
+export default Contact;

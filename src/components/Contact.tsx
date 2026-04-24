@@ -1,23 +1,33 @@
+// ─── src/components/Contact.tsx ───────────────────────────────────────────────
+// Fixed: added proper section wrapper, labels, styling, and status messages.
+// EmailJS still used — just needs your .env variables set.
+
 import { useState, ChangeEvent, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
+import "./styles/Contact.css";
+import { personalDetails } from "../data/personalDetails";
+
+type FormState = { name: string; email: string; message: string };
+type Status = "idle" | "sending" | "sent" | "error";
 
 const Contact = () => {
-	const [form, setForm] = useState({
+	const [form, setForm] = useState<FormState>({
 		name: "",
 		email: "",
 		message: "",
 	});
+	const [status, setStatus] = useState<Status>("idle");
 
-	// Updates the state whenever you type in an input
 	const handleChange = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const { name, value } = e.target;
-		setForm({ ...form, [name]: value });
+		setForm((prev) => ({ ...prev, [name]: value }));
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setStatus("sending");
 
 		emailjs
 			.send(
@@ -27,43 +37,144 @@ const Contact = () => {
 				import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
 			)
 			.then(() => {
-				alert("Message sent successfully!");
-				// Clears the form after a successful send
+				setStatus("sent");
 				setForm({ name: "", email: "", message: "" });
 			})
-			.catch((error) => {
-				console.error("EmailJS Error:", error);
-				alert("Something went wrong. Please try again.");
-			});
+			.catch(() => setStatus("error"));
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input
-				type="text"
-				name="name"
-				value={form.name}
-				onChange={handleChange}
-				placeholder="Your Name"
-				required
-			/>
-			<input
-				type="email"
-				name="email"
-				value={form.email}
-				onChange={handleChange}
-				placeholder="Your Email"
-				required
-			/>
-			<textarea
-				name="message"
-				value={form.message}
-				onChange={handleChange}
-				placeholder="Your Message"
-				required
-			/>
-			<button type="submit">Send</button>
-		</form>
+		<section
+			id="contact"
+			className="contact-section"
+			aria-labelledby="contact-heading"
+		>
+			<div className="contact-container">
+				<p className="contact-label">Get in touch</p>
+				<h2 id="contact-heading" className="contact-heading">
+					Let's work
+					<span className="contact-heading-dim"> together</span>
+				</h2>
+
+				<div className="contact-grid">
+					{/* Left: info */}
+					<div className="contact-info">
+						<p className="contact-info-text">
+							I'm currently open to internships and freelance
+							projects. If you have something in mind, drop me a
+							message.
+						</p>
+						<div className="contact-links">
+							<a
+								href={`mailto:${personalDetails.social.email}`}
+								className="contact-link"
+							>
+								✉ {personalDetails.social.email}
+							</a>
+							<a
+								href={personalDetails.social.github}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="contact-link"
+							>
+								⌥ GitHub
+							</a>
+							<a
+								href={personalDetails.social.linkedin}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="contact-link"
+							>
+								⌥ LinkedIn
+							</a>
+						</div>
+					</div>
+
+					{/* Right: form */}
+					<form
+						onSubmit={handleSubmit}
+						className="contact-form"
+						noValidate
+					>
+						<div className="contact-field">
+							<label
+								htmlFor="contact-name"
+								className="contact-field-label"
+							>
+								Name
+							</label>
+							<input
+								id="contact-name"
+								type="text"
+								name="name"
+								value={form.name}
+								onChange={handleChange}
+								placeholder="Your name"
+								required
+								className="contact-input"
+							/>
+						</div>
+
+						<div className="contact-field">
+							<label
+								htmlFor="contact-email"
+								className="contact-field-label"
+							>
+								Email
+							</label>
+							<input
+								id="contact-email"
+								type="email"
+								name="email"
+								value={form.email}
+								onChange={handleChange}
+								placeholder="your@email.com"
+								required
+								className="contact-input"
+							/>
+						</div>
+
+						<div className="contact-field">
+							<label
+								htmlFor="contact-message"
+								className="contact-field-label"
+							>
+								Message
+							</label>
+							<textarea
+								id="contact-message"
+								name="message"
+								value={form.message}
+								onChange={handleChange}
+								placeholder="Tell me about your project..."
+								required
+								rows={5}
+								className="contact-input contact-textarea"
+							/>
+						</div>
+
+						<button
+							type="submit"
+							className="contact-submit"
+							disabled={status === "sending"}
+						>
+							{status === "sending" ? "Sending…" : "Send message"}
+						</button>
+
+						{status === "sent" && (
+							<p className="contact-status contact-status--success">
+								Message sent! I'll get back to you soon.
+							</p>
+						)}
+						{status === "error" && (
+							<p className="contact-status contact-status--error">
+								Something went wrong. Try emailing me directly.
+							</p>
+						)}
+					</form>
+				</div>
+			</div>
+		</section>
 	);
 };
 
